@@ -8,9 +8,9 @@
   <arg name="rate" default="1" /> <!-- WSG50 HW revision 2: up to 30 Hz with script; 140Hz with auto_update -->
   <arg name="force" default="10" />
   <arg name="home_at_start" default="true"/> <!-- Homes module and tares force sensor if enabled -->
-  <arg name="left_finger_joint" /> 
-  <arg name="right_finger_joint" /> 
-  <arg name="base_link" /> 
+  <arg name="left_finger_joint" default="left_finger_joint"/> 
+  <arg name="right_finger_joint" default="right_finger_joint"/> 
+  <arg name="base_link" default="wsg_base_link"/> 
 
   <node name="wsg_50_driver"  pkg="wsg_50_driver" type="wsg_50_ip">
     <param name="ip" type="string" value="$(arg ip)"/>
@@ -21,7 +21,7 @@
     <param name="rate" type="double" value="$(arg rate)"/>
     <param name="grasping_force" type="double" value="$(arg force)"/>
     <param name="home_at_start" type="boolean" value="$(arg home_at_start)"/>
-    <param name="left_finger_joint" type="boolean" value="$(arg left_finger_joint)"/>
+    <param name="left_finger_joint" type="string" value="$(arg left_finger_joint)"/>
     <param name="right_finger_joint" type="string" value="$(arg right_finger_joint)"/>
     <param name="base_link" type="string" value="$(arg base_link)"/>
   </node>
