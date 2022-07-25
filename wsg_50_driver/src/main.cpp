@@ -87,6 +87,7 @@ int g_timer_cnt = 0;
 ros::Publisher g_pub_state, g_pub_joint, g_pub_moving;
 bool g_ismoving = false, g_mode_script = false, g_mode_periodic = false, g_mode_polling = false;
 float g_goal_position = NAN, g_goal_speed = NAN, g_speed = 10.0;
+std::string base_link, left_finger_jnt, right_finger_jnt;
 
 //------------------------------------------------------------------------
 // Unit testing
@@ -319,9 +320,9 @@ void timer_cb(const ros::TimerEvent& ev)
     // \todo Use name of node for joint names
 	sensor_msgs::JointState joint_states;
 	joint_states.header.stamp = ros::Time::now();;
-	joint_states.header.frame_id = "wsg50_base_link";
-	joint_states.name.push_back("wsg50_finger_left_joint");
-	joint_states.name.push_back("wsg50_finger_right_joint");
+	joint_states.header.frame_id = base_link;
+	joint_states.name.push_back(left_finger_jnt);
+	joint_states.name.push_back(right_finger_jnt);
 	joint_states.position.resize(2);
 
 	joint_states.position[0] = -info.position/2000.0;
@@ -559,6 +560,10 @@ int main( int argc, char **argv )
 
    if (res_con == 0 ) {
         ROS_INFO("Gripper connection stablished");
+
+        ros::param::get("~base_link",base_link);
+        ros::param::get("~left_finger_joint",left_finger_jnt);
+        ros::param::get("~right_finger_joint",right_finger_jnt);
 
 		// Services
         ros::ServiceServer moveSS, graspSS, releaseSS, homingSS, stopSS, ackSS, incrementSS, setAccSS, setForceSS;
