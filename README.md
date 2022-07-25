@@ -1,4 +1,4 @@
-# ROS package for Schunk WSG-50 Gripper
+# ROS package for Schunk WSG (32 and 50) Gripper
 
 This package implements a TCP, UDP and CAN drivers for the WSG-50 gripper.
 
